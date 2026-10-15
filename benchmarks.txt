@@ -1,0 +1,42 @@
+no of epochs, accuracy (multiple differet ntrials)
+
+batch size 64
+
+    nn1 = 10:
+
+        1 67, 65, 67
+        10 88.12, 87.73
+        100 92.77
+        1000 93.83  // diminishing returns!
+
+
+    nn1 = 24:
+
+        200 96.24!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    nn1 = 64
+        100 96.06, found a great minima!
+
+    nn1 = 128:
+
+        1
+        10 92.28!!!, 92.53!!
+        
+
+    nn1 = 256:
+
+        10: 94.44!!
+        100: 
+
+    nn1 = 512:
+        300: 96.91 // the best so far
+
+
+
+batch size 32
+
+    nn1 = 256:
+
+        10: 94.14, 
+        
+        conclusion: lower batch size isn't a major cange.

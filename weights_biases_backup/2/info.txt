@@ -1,0 +1,5 @@
+nn1 = 32
+learning_rate = 0.01
+batch_size = 64
+epochs = 100
+accuracy = 95.05%

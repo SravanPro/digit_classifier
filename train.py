@@ -1,11 +1,12 @@
-from functions import *
+#old train
+# from functions import *
 
 # training dataset
 train = np.array(pd.read_csv(r"C:\codes\MLStuff\datasets\mnist\mnist_train.csv"))
 
 # number of neurons in each layer
 nn0 = 784   # input layer, number of pixels in each image
-nn1 = 256   # hidden layer, number of neurons in hidden layer    
+nn1 = 24   # hidden layer, number of neurons in hidden layer    
 nn2 = 10   # output layer, number of neurons in output layer, which is the number of classes (0-9)
 
 # our datset:   
@@ -23,7 +24,7 @@ train_input = train_input/255   # normalizing the pixel values to be between 0 a
 
 learning_rate = 0.01
 batch_size = 64
-epochs = 100
+epochs = 200
 
 w1, b1, w2, b2 = train_model(train_input, train_output, learning_rate, batch_size, epochs, nn0, nn1, nn2)
 
