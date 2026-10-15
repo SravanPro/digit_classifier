@@ -160,12 +160,12 @@ def gradient_descent_batch(a0, y, learning_rate, w1, b1, w2, b2, nn0, nn1, nn2):
     return w1, b1, w2, b2
 
 # this function performs 1 epoch of training
-def gradient_descent_epoch(train_input, train_output, learning_rate, batch_size, w1, b1, w2, b2, nn0, nn1, nn2):
+def gradient_descent_epoch(train_input, train_output, learning_rate, batch_size, w1, b1, w2, b2, nn0, nn1, nn2, epoch):
 
     total_no_of_training_examples = train_input.shape[1]  # number of training examples
     
     for i in range(0, total_no_of_training_examples, batch_size):
-        print(f"    batch {i // batch_size}")
+        print(f"epoch {epoch} | batch {i // batch_size}")
         a0 = train_input[:, i:i+batch_size]
         y = train_output[i:i+batch_size]
         w1, b1, w2, b2 = gradient_descent_batch(a0, y, learning_rate, w1, b1, w2, b2, nn0, nn1, nn2)
@@ -178,11 +178,10 @@ def train_model(train_input, train_output, learning_rate, batch_size, epochs, nn
     w1, b1, w2, b2 = initialize_parameters(nn0, nn1, nn2)  # Initialize only once
 
     for epoch in range(epochs):
-        print(f"epoch {epoch}:")
         w1, b1, w2, b2 = gradient_descent_epoch(
             train_input, train_output, learning_rate, batch_size, 
             w1, b1, w2, b2, 
-            nn0, nn1, nn2
+            nn0, nn1, nn2, epoch
         )
     return w1, b1, w2, b2
 
