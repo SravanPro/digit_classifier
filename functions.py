@@ -62,6 +62,8 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import time
+
 
 #functions:
 
@@ -159,30 +161,51 @@ def gradient_descent_batch(a0, y, learning_rate, w1, b1, w2, b2, nn0, nn1, nn2):
 
     return w1, b1, w2, b2
 
-# this function performs 1 epoch of training
-def gradient_descent_epoch(train_input, train_output, learning_rate, batch_size, w1, b1, w2, b2, nn0, nn1, nn2, epoch):
 
-    total_no_of_training_examples = train_input.shape[1]  # number of training examples
-    
+
+# this function performs 1 epoch of training
+def gradient_descent_epoch(train_input, train_output, learning_rate, batch_size, w1, b1, w2, b2, nn0, nn1, nn2, epoch, start_time):
+
+    total_no_of_training_examples = train_input.shape[1]
+
     for i in range(0, total_no_of_training_examples, batch_size):
-        print(f"epoch {epoch} | batch {i // batch_size}")
+        elapsed = time.perf_counter() - start_time
+        hours = int(elapsed // 3600)
+        minutes = int((elapsed % 3600) // 60)
+        seconds = int(elapsed % 60)
+        milliseconds = int((elapsed % 1) * 1000)
+
+        print(f"Time: {hours:02}:{minutes:02}:{seconds:02}.{milliseconds:03} | epoch {epoch:03} | batch {i // batch_size:04}", flush=True)
+
         a0 = train_input[:, i:i+batch_size]
         y = train_output[i:i+batch_size]
-        w1, b1, w2, b2 = gradient_descent_batch(a0, y, learning_rate, w1, b1, w2, b2, nn0, nn1, nn2)
+
+        w1, b1, w2, b2 = gradient_descent_batch(
+            a0, y, learning_rate, w1, b1, w2, b2, nn0, nn1, nn2
+        )
 
     return w1, b1, w2, b2
 
 
 def train_model(train_input, train_output, learning_rate, batch_size, epochs, nn0, nn1, nn2):
 
-    w1, b1, w2, b2 = initialize_parameters(nn0, nn1, nn2)  # Initialize only once
+    w1, b1, w2, b2 = initialize_parameters(nn0, nn1, nn2)
+
+    start_time = time.perf_counter()
 
     for epoch in range(epochs):
         w1, b1, w2, b2 = gradient_descent_epoch(
-            train_input, train_output, learning_rate, batch_size, 
-            w1, b1, w2, b2, 
-            nn0, nn1, nn2, epoch
+            train_input, train_output, learning_rate, batch_size,
+            w1, b1, w2, b2,
+            nn0, nn1, nn2, epoch, start_time
         )
+
+    elapsed = time.perf_counter() - start_time
+    hours = int(elapsed // 3600)
+    minutes = int((elapsed % 3600) // 60)
+    seconds = int(elapsed % 60)
+    milliseconds = int((elapsed % 1) * 1000)
+
+    print(f"\nTraining completed in {hours:02}:{minutes:02}:{seconds:02}.{milliseconds:03}")
+
     return w1, b1, w2, b2
-
-
