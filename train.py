@@ -1,20 +1,12 @@
 from functions import *
 
-
-# main:
-
-
-# training and validation datasets
+# training dataset
 train = np.array(pd.read_csv(r"C:\codes\MLStuff\datasets\mnist\mnist_train.csv"))
-val = np.array(pd.read_csv(r"C:\codes\MLStuff\datasets\mnist\mnist_test.csv"))
-
 
 # number of neurons in each layer
 nn0 = 784   # input layer, number of pixels in each image
 nn1 = 10   # hidden layer, number of neurons in hidden layer    
 nn2 = 10   # output layer, number of neurons in output layer, which is the number of classes (0-9)
-
-
 
 # our datset:   
 # [[5 0 0 ... 0 0 0]
@@ -27,16 +19,7 @@ nn2 = 10   # output layer, number of neurons in output layer, which is the numbe
 
 train_input = train[:,1:].T   # all columns except the first one, transpose taken coz each column must be an image.
 train_output = train[:,0]   # first column
-
-val_input = val[:,1:].T
-val_output = val[:,0]
-
-train_input, val_input = train_input/255, val_input/255   # normalizing the pixel values to be between 0 and 1
-
-
-
-# our desired outupt, the reason we're doing the whole thing: to get weights and biases
-    
+train_input = train_input/255   # normalizing the pixel values to be between 0 and 1
 
 learning_rate = 0.01
 batch_size = 64
